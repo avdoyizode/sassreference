@@ -1,67 +1,64 @@
-@import "./resets";
-@import "./variables";
+@import "config";
+@import "home";
+@import "menu";
+@import "about";
+@import "projects";
+body {
+  background: $primary-color;
+  color: set-text-color($primary-color);
 
-//functions are used to handle values and return values
-//mixin are used to handle styles
-
-@function weight($weight-name) {
-  @return map-get($font-weights, $weight-name);
-}
-//helps to re-use the code
-@mixin flexcenter($direction) {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: $direction;
+  height: 100vh;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1;
 }
 
-@mixin theme($light-theme: true) {
-  @if $light-theme {
-    background: lighten($primary-color, $amount: 100%);
-    color: darken($text-color, $amount: 100%);
-    .main {
-      @include flexcenter(column);
-      &__paragraph:hover {
-        color: lightpink;
+h1,
+h2,
+h3 {
+  font-weight: 400;
+}
+
+a {
+  color: set-text-color($primary-color);
+  text-decoration: none;
+}
+
+.text-secondary {
+  color: $secondary-color;
+}
+
+header {
+  position: fixed;
+  z-index: 2;
+  width: 100%;
+  padding: 1rem;
+}
+
+main {
+  height: 100%;
+  width: 100%;
+
+  .social-icons {
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
+
+    a {
+      padding: 0.4rem;
+
+      &:hover {
+        color: $secondary-color;
+        @include transition-ease;
       }
     }
   }
 }
 
-@mixin mobile {
-  @media (max-width: $mobile) {
-    @content;
-  }
-}
-body {
-  background-color: $primary-color;
-  color: $text-color;
-  font-weight: map-get($font-weights, medium);
-}
-
-.main {
-  @include flexcenter(row);
-  width: 80%;
-  margin: 0 auto;
-
-  #{&}__paragraph1 {
-    font-weight: weight(regular);
-    max-width: 100%;
-  }
-  &__paragraph:hover {
-    color: palegoldenrod;
-  }
-  @include mobile {
-    flex-direction: column;
-  }
-}
-#{&}__paragraph2 {
-  @extend .main__paragraph1;
-
-  &:hover {
-    color: turquoise;
-  }
-}
-.light {
-  @include theme(false);
+footer {
+  font-size: 1rem;
+  position: fixed;
+  bottom: 0.4rem;
+  right: 1rem;
+  padding: 1rem;
+  color: set-text-color($primary-color);
 }
